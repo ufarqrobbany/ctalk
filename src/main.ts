@@ -87,6 +87,11 @@ async function bootstrap() {
     prefix: '/static/',
   });
 
+  // Sajikan folder files untuk uploaded files
+  app.useStaticAssets(path.join(process.cwd(), 'files'), {
+    prefix: '/files/',
+  });
+
   // Set base view directory
   app.setBaseViewsDir(path.join(process.cwd(), 'themes'));
 

@@ -19,7 +19,7 @@ import { PostEntity } from './infrastructure/persistence/relational/entities/pos
 import { Repository } from 'typeorm';
 import { UserEntity } from '../users/infrastructure/persistence/relational/entities/user.entity';
 import { Express } from 'express';
-import { FilesS3Service } from 'src/files/infrastructure/uploader/s3/files.service';
+import { FilesLocalService } from 'src/files/infrastructure/uploader/local/files.service';
 import { RoleEnum } from '../roles/roles.enum';
 
 @Injectable()
@@ -27,7 +27,7 @@ export class PostsService {
   constructor(
     @Inject(PostRepository)
     private readonly postRepository: PostRepository,
-    private readonly filesService: FilesS3Service,
+    private readonly filesService: FilesLocalService,
 
     @InjectRepository(PostEntity)
     private readonly postEntityRepository: Repository<PostEntity>,
@@ -39,7 +39,7 @@ export class PostsService {
   async create(
     user: User,
     createPostDto: CreatePostDto,
-    file: Express.MulterS3.File | undefined,
+    file: Express.Multer.File | undefined,
   ): Promise<Post> {
     if (!createPostDto.content && !file) {
       throw new UnprocessableEntityException({

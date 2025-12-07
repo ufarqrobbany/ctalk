@@ -29,6 +29,13 @@ export class FilesLocalService {
       });
     }
 
+    console.log('📎 File received:', {
+      filename: file.filename,
+      originalname: file.originalname,
+      path: file.path,
+      mimetype: file.mimetype,
+    });
+
     const apiPrefix = this.configService.get('app.apiPrefix', {
       infer: true,
     });
@@ -46,6 +53,7 @@ export class FilesLocalService {
       filename = path.basename(file.path); // <-- Mengambil nama file dari path
     } else {
       // Jika kedua properti file.filename dan file.path tidak ada (kasus terburuk)
+      console.error('❌ File object invalid - no filename or path');
       throw new UnprocessableEntityException({
         status: HttpStatus.INTERNAL_SERVER_ERROR,
         errors: {

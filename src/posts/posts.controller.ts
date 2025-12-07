@@ -55,7 +55,7 @@ export class PostsController {
   @UseInterceptors(FileInterceptor('file'))
   async create(
     @Body() createPostDto: CreatePostDto,
-    @UploadedFile() file: Express.MulterS3.File,
+    @UploadedFile() file: Express.Multer.File,
     @Request() req,
     @Res() res: Response,
   ): Promise<void> {
